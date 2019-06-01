@@ -1,0 +1,12 @@
+SELECT course_name, user_country as country_name  FROM (
+select course_name, user_country, c.course_id, grade,
+  ROW_NUMBER() OVER(
+  PARTITION BY  c.course_id
+  order by grade desc, user_country asc
+  ) AS ROWNUMBER
+from users u inner join enrollments e 
+on u.user_id1 = e.user_id1
+inner join courses c on e.course_id= c.course_id
+) groups
+WHERE groups.ROWNUMBER = 1
+order by groups.course_name asc;
