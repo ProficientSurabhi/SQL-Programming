@@ -1,3 +1,10 @@
+Question:
+Write a single SQL query to find the country with the highest average gradefor each Udemy course. 
+Your output should be a table with columns (course_name, country_name)
+
+-------------------------------------------------------------------------------------------------------------------
+Query:
+
 SELECT course_name, user_country as country_name  FROM (
 select course_name, user_country, c.course_id, grade,
   ROW_NUMBER() OVER(
